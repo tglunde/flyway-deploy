@@ -19,7 +19,7 @@
                   <location>filesystem:Datenbank/DWH/</location>
                 </locations>
               </configuration>
-              <phase>compile</phase>
+              <phase>initialize</phase>
               <goals>
               	<goal>migrate</goal>
               </goals>
@@ -33,7 +33,7 @@
                   <location>filesystem:Datenbank/DWH_NEU/</location>
                 </locations>
               </configuration>
-              <phase>compile</phase>
+              <phase>initialize</phase>
               <goals>
               	<goal>migrate</goal>
               </goals>
@@ -57,9 +57,6 @@
         <flyway.driver>org.postgresql.Driver</flyway.driver>
         <flyway.url>jdbc:postgresql://localhost:5432/dwhcor_e</flyway.url>
         <server.auth>ENT</server.auth>
-        <flyway.baselineVersion>0.0.1</flyway.baselineVersion>
-        <flyway.baselineDescription>DWH 3.0 baseline</flyway.baselineDescription>
-        <flyway.locations>filesystem:Datenbank</flyway.locations>
       </properties>
     </profile>
   </profiles>
