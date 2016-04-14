@@ -3,42 +3,26 @@
   <groupId>dwh</groupId> 
   <artifactId>dwh-deploy</artifactId>
   <version>3.0</version>
+  <properties>
+    <flyway.sqlMigrationPrefix>V_</flyway.sqlMigrationPrefix>
+    <flyway.sqlMigrationSuffix>.sql</flyway.sqlMigrationSuffix>
+    <flyway.sqlMigrationSeparator>__</flyway.sqlMigrationSeparator>
+    <flyway.baselineVersion>0.0.1</flyway.baselineVersion>
+    <flyway.outOfOrder>false</flyway.outOfOrder>
+    <flyway.driver>org.postgresql.Driver</flyway.driver>
+  </properties>
   <build>
       <plugins>
         <plugin>
           <groupId>org.flywaydb</groupId>
           <artifactId>flyway-maven-plugin</artifactId>
           <version>4.0</version>
-          <executions>
-            <execution>
-              <id>dwh</id>
-              <configuration>
-                <serverId>${server.auth}</serverId>
-                <schemas><schema>DWH</schema></schemas>
-                <locations>
-                  <location>filesystem:Datenbank/DWH/</location>
-                </locations>
-              </configuration>
-              <phase>initialize</phase>
-              <goals>
-              	<goal>migrate</goal>
-              </goals>
-            </execution>
-            <execution>
-              <id>dwhneu</id>
-              <configuration>
-                <serverId>${server.auth}</serverId>
-                <schemas><schema>DWH_NEU</schema></schemas>
-                <locations>
-                  <location>filesystem:Datenbank/DWH_NEU/</location>
-                </locations>
-              </configuration>
-              <phase>initialize</phase>
-              <goals>
-              	<goal>migrate</goal>
-              </goals>
-            </execution>
-          </executions> 
+		  <configuration><serverId>${server.auth}</serverId>
+			<schemas><schema>${dwh.schema}</schema></schemas>
+			<locations>
+			  <location>filesystem:Datenbank/${dwh.schema}/</location>
+			</locations>
+		  </configuration>
         </plugin>
       </plugins>
   </build>
@@ -54,7 +38,6 @@
     <profile>
       <id>ENT</id>
       <properties>
-        <flyway.driver>org.postgresql.Driver</flyway.driver>
         <flyway.url>jdbc:postgresql://localhost:5432/dwhcor_e</flyway.url>
         <server.auth>ENT</server.auth>
       </properties>
